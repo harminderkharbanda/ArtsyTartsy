@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Artsy Tartsy</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="error_message">An error has occurred.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="steps_title">Recipe Steps</string>
+    <string name="step_details">Step Details</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="recipe_step_default">Recipe Step</string>
+</resources>
