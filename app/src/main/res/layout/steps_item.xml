@@ -11,7 +11,8 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_margin="@dimen/card_margin"
-        card_view:cardCornerRadius="@dimen/card_corner_radius">
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        card_view:cardBackgroundColor="@color/colorSteps">
 
         <TextView
             android:id="@+id/step_name"
@@ -20,6 +21,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="@dimen/default_margin"
             android:textSize="@dimen/recipe_title"
+            android:fontFamily="sans-serif-light"
             android:text="@string/recipe_step_default"/>
 
     </android.support.v7.widget.CardView>

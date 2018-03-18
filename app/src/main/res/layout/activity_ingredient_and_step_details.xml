@@ -5,10 +5,9 @@
     android:layout_height="wrap_content">
 
     <FrameLayout
-    android:id="@+id/ingredient_step_details_fragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+        android:id="@+id/ingredient_step_details_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerInside"/>
-
 
 </FrameLayout>

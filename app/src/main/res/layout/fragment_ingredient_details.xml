@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.android.artsytartsy.ui.IngredientAndStepDetailsActivity">
+    android:layout_height="match_parent">
 
-    <TextView
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ingredients_details_tv"
-        android:textSize="@dimen/recipe_title"
-        android:layout_margin="@dimen/default_margin"/>
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        tools:context="com.android.artsytartsy.ui.IngredientAndStepDetailsActivity"
+        android:background="@color/colorSteps">
 
-</ScrollView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ingredients_details_tv"
+            android:textSize="@dimen/recipe_title"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_margin="@dimen/default_margin"/>
+
+    </ScrollView>
+</RelativeLayout>
+
+

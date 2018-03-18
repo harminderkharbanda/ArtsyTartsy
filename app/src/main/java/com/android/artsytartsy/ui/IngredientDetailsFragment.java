@@ -39,13 +39,13 @@ public class IngredientDetailsFragment extends Fragment {
     };
 
     public IngredientDetailsFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+        getActivity().setTitle(R.string.ingredient_fragment_title);
         if(savedInstanceState != null) {
             ingredients = (ArrayList<Ingredient>) savedInstanceState.getSerializable(Constants.KEY_SAVE_INGREDIENT);
         }

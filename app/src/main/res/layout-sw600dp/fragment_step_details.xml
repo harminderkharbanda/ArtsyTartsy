@@ -1,0 +1,48 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@color/colorSteps">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="com.android.artsytartsy.ui.StepDetailsFragment"
+            android:background="@color/colorSteps">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_gravity="left"
+                android:id="@+id/step_details_tv"
+                android:text="@string/step_details"
+                android:textSize="@dimen/recipe_title"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/exoplayer_size"
+                android:id="@+id/exo_frame">
+                <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/exoplayer_size"
+                    android:id="@+id/playerView"
+                    android:layout_gravity="center"/>
+                <ProgressBar
+                    android:layout_width="@dimen/progressbar_size"
+                    android:layout_height="@dimen/progressbar_size"
+                    android:id="@+id/exo_pb"
+                    android:visibility="invisible"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

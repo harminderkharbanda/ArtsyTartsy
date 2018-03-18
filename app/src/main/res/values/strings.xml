@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Artsy Tartsy</string>
     <string name="title_item_detail">Item Detail</string>
-    <string name="error_message">An error has occurred.</string>
+    <string name="error_message">An error has occurred. Check internet and relaunch the app.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -9,4 +9,13 @@
     <string name="step_details">Step Details</string>
     <string name="ingredients">Ingredients</string>
     <string name="recipe_step_default">Recipe Step</string>
+    <string name="recipe_detail_activity_title">Recipe Details</string>
+    <string name="ingredient_fragment_title">Ingredients</string>
+    <string name="steps_fragment_title">Step Details</string>
+    <string name="appwidget_text">Artsy Tartsy</string>
+    <string name="add_widget">Add widget</string>
+    <string name="next_step">Next Step</string>
+    <string name="prev_step">Previous Step</string>
+    <string name="last_step">This is the last step</string>
+    <string name="first_step">This is the first step</string>
 </resources>

@@ -1,18 +1,14 @@
 package com.android.artsytartsy;
 
-import android.graphics.Color;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.artsytartsy.data.data.model.Recipe;
 import com.android.artsytartsy.data.data.model.Step;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by harminder on 14/03/18.
@@ -41,9 +37,6 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     public void onBindViewHolder(RecipeStepsViewHolder holder, int position) {
         Step step = recipeStepList.get(position);
         holder.stepName.setText(step.getShortDescription());
-        Random rnd = new Random();
-        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-        holder.stepCard.setBackgroundColor(color);
     }
 
     @Override
@@ -54,11 +47,9 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     public class RecipeStepsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView stepName;
-        private CardView stepCard;
         public RecipeStepsViewHolder(View itemView) {
             super(itemView);
             stepName = itemView.findViewById(R.id.step_name);
-            stepCard = itemView.findViewById(R.id.steps_card);
             itemView.setOnClickListener(this);
         }
 

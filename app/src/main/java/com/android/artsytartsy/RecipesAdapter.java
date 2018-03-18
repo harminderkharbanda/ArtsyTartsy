@@ -1,17 +1,16 @@
 package com.android.artsytartsy;
 
-import android.graphics.Color;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.artsytartsy.data.data.model.Recipe;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by harminder on 13/03/18.
@@ -40,9 +39,19 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesV
     public void onBindViewHolder(RecipesViewHolder holder, int position) {
         Recipe recipe = recipeList.get(position);
         holder.recipeName.setText(recipe.getName());
-        Random rnd = new Random();
-        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-        holder.recipeCard.setBackgroundColor(color);
+        if (recipe.getName().equals("Nutella Pie")) {
+            Picasso.get().load(R.drawable.nutellapie).into(holder.recipeImage);
+        }
+        if (recipe.getName().equals("Brownies")) {
+            Picasso.get().load(R.drawable.brownie).into(holder.recipeImage);
+        }
+        if (recipe.getName().equals("Yellow Cake")) {
+            Picasso.get().load(R.drawable.yellowcake).into(holder.recipeImage);
+        }
+        if (recipe.getName().equals("Cheesecake")) {
+            Picasso.get().load(R.drawable.cheesecake).into(holder.recipeImage);
+        }
+
     }
 
     @Override
@@ -53,12 +62,12 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesV
 
     public class RecipesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView recipeName;
-        private CardView recipeCard;
+        private ImageView recipeImage;
 
         public RecipesViewHolder(View itemView) {
             super(itemView);
             recipeName = itemView.findViewById(R.id.recipe_name);
-            recipeCard = itemView.findViewById(R.id.recipe_card);
+            recipeImage = itemView.findViewById(R.id.recipe_iv);
             itemView.setOnClickListener(this);
         }
 

@@ -1,16 +1,22 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:background="@color/colorSteps">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.android.artsytartsy.ui.StepDetailsFragment">
+        tools:context="com.android.artsytartsy.ui.StepDetailsFragment"
+        android:background="@color/colorSteps">
 
-    <!-- TODO: Update blank fragment layout -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,15 +26,49 @@
             android:text="@string/step_details"
             android:textSize="@dimen/recipe_title"/>
 
-        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:id="@+id/playerView"/>
+            android:layout_height="@dimen/exoplayer_size"
+            android:id="@+id/exo_frame">
+            <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/exoplayer_size"
+                android:id="@+id/playerView"
+                android:layout_gravity="center"/>
+            <ProgressBar
+                android:layout_width="@dimen/progressbar_size"
+                android:layout_height="@dimen/progressbar_size"
+                android:id="@+id/exo_pb"
+                android:visibility="invisible"
+                android:layout_gravity="center"/>
+        </FrameLayout>
 
-        <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="400dp"-->
-            <!--android:id="@+id/step_detail_iv"/>-->
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="@dimen/zero_dp"
+                android:layout_height="wrap_content"
+                android:text="@string/prev_step"
+                android:id="@+id/prev_step"
+                android:layout_margin="@dimen/default_margin"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/colorWhite"
+                android:visibility="invisible"/>
+            <Button
+                android:layout_width="@dimen/zero_dp"
+                android:layout_height="wrap_content"
+                android:text="@string/next_step"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/default_margin"
+                android:id="@+id/next_step"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/colorWhite"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
+</RelativeLayout>
