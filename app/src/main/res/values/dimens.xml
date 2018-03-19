@@ -13,7 +13,7 @@
     <dimen name="error_text_size">20sp</dimen>
     <dimen name="recipe_title">20sp</dimen>
     <dimen name="recipe_card_text">30sp</dimen>
-    <dimen name="widget_text">15sp</dimen>
+    <dimen name="widget_text">12sp</dimen>
 
     <!--
 Refer to App Widget Documentation for margin information
@@ -23,5 +23,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="zero_dp">0dp</dimen>
     <dimen name="widget_grid_spacing">1dp</dimen>
     <dimen name="exoplayer_size">400dp</dimen>
+    <dimen name="recipe_card">250dp</dimen>
+    <dimen name="recipe_card_tablet">400dp</dimen>
 
 </resources>

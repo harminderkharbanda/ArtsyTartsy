@@ -3,6 +3,10 @@ package com.android.artsytartsy.ui;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -12,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.StateSet;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +36,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.android.artsytartsy.ui.Constants.SAVED_POSITION;
+import static com.android.artsytartsy.ui.Constants.SAVED_POSITION_MAIN_ACTIVITY;
+
 public class MainActivity extends AppCompatActivity implements RecipesAdapter.RecipeClickListener {
 
 
@@ -42,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.Re
     private GridWidgetService.GridRemoteViewsFactory mRemoteViewsFactory;
     private ProgressBar mProgressBar;
     private TextView mErrorTextView;
+    private Parcelable mainActivityManagerSavedState;
+    public static SharedPreferences sp;
 
     @VisibleForTesting
     @NonNull
@@ -75,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.Re
 
         mService = ApiUtils.getRecipeService();
 
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+
         getIdlingResource();
 
         loadRecipes(mIdlingResource);
@@ -90,11 +102,16 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.Re
                 if (response.isSuccessful()) {
                     mProgressBar.setVisibility(View.INVISIBLE);
                     mErrorTextView.setVisibility(View.INVISIBLE);
-                    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
-                    int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getApplicationContext(), RecipeWidgetProvider.class));
+//                    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
+//                    int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getApplicationContext(), RecipeWidgetProvider.class));
                     mRecipesAdapter.setRecipeData(response.body());
                     mRemoteViewsFactory.setData(response.body());
-                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_grid_view);
+                    RecipeWidgetProvider.setRecipeIngredient(response.body());
+//                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_grid_view);
+
+                    if (mainActivityManagerSavedState != null) {
+                        restoreLayoutManagerPosition();
+                    }
                     mRecipesAdapter.notifyDataSetChanged();
                     if (idlingResource != null) {
                         idlingResource.setIdleState(true);
@@ -122,4 +139,23 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.Re
         startActivity(intent);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        bundle.putParcelable(SAVED_POSITION_MAIN_ACTIVITY, mRecyclerView.getLayoutManager().onSaveInstanceState());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            mainActivityManagerSavedState = savedInstanceState.getParcelable(Constants.SAVED_POSITION_MAIN_ACTIVITY);
+        }
+    }
+
+    private void restoreLayoutManagerPosition() {
+        if (mainActivityManagerSavedState != null) {
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(mainActivityManagerSavedState);
+        }
+    }
 }

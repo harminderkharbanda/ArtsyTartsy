@@ -1,17 +1,25 @@
 package com.android.artsytartsy.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.artsytartsy.R;
+import com.android.artsytartsy.RecipeWidgetProvider;
 import com.android.artsytartsy.data.data.model.Ingredient;
 import com.android.artsytartsy.data.data.model.Recipe;
 import com.android.artsytartsy.data.data.model.Step;
 
 import java.util.ArrayList;
+
+import static com.android.artsytartsy.ui.MainActivity.sp;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDetailsFragment.OnFragmentInteractionListener, StepDetailsFragment.NavigationButtonsHandler{
 
@@ -111,6 +119,24 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
         if (itemId == android.R.id.home) {
             this.finish();
         }
+        if (itemId == R.id.favorite) {
+            if (sp == null) {
+                sp = PreferenceManager.getDefaultSharedPreferences(this);
+            }
+            SharedPreferences.Editor editor = sp.edit();
+            if (item.getTitle().equals(this.getResources().getString(R.string.sort_by))) {
+                editor.putInt(Constants.SP_FAVORITE, mRecipe.getId());
+                RecipeWidgetProvider.updateMyWidgets(this);
+                item.setTitle(this.getResources().getString(R.string.sort_by_unfavorite));
+                Toast.makeText(this, R.string.added_to_favorite, Toast.LENGTH_SHORT).show();
+            } else {
+                editor.putInt(Constants.SP_FAVORITE, -1);
+                RecipeWidgetProvider.updateMyWidgets(this);
+                item.setTitle(this.getResources().getString(R.string.sort_by));
+                Toast.makeText(this, this.getResources().getString(R.string.removed_from_favorite), Toast.LENGTH_SHORT).show();
+            }
+            editor.apply();
+        }
         return true;
     }
 
@@ -123,4 +149,16 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
     public void onPreviousButtonClicked(Step step) {
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.recipe_menu, menu);
+        int id = sp.getInt(Constants.SP_FAVORITE, -1);
+        if (mRecipe.getId() == id) {
+            menu.findItem(R.id.favorite).setTitle(this.getResources().getString(R.string.sort_by_unfavorite));
+        }
+        return true;
+    }
+
 }

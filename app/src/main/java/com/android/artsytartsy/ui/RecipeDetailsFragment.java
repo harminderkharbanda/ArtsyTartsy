@@ -2,6 +2,7 @@ package com.android.artsytartsy.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import com.android.artsytartsy.data.data.model.Step;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.android.artsytartsy.ui.Constants.SAVED_POSITION;
+
 public class RecipeDetailsFragment extends Fragment implements RecipeStepsAdapter.RecipeStepClickListener{
 
     private OnFragmentInteractionListener mListener;
@@ -25,6 +28,7 @@ public class RecipeDetailsFragment extends Fragment implements RecipeStepsAdapte
     private List<Step> stepList;
     private ArrayList<Ingredient> ingredientsList;
     private CardView ingredientsCard;
+    private static Parcelable layoutManagerSavedState;
 
     public RecipeDetailsFragment() {
     }
@@ -37,6 +41,11 @@ public class RecipeDetailsFragment extends Fragment implements RecipeStepsAdapte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            if (savedInstanceState != null) {
+                layoutManagerSavedState = savedInstanceState.getParcelable(SAVED_POSITION);
+            }
+        }
         View rootView = inflater.inflate(R.layout.fragment_recipe_details, container, false);
         mRecyclerView = rootView.findViewById(R.id.steps_recyclerview);
         ingredientsCard = rootView.findViewById(R.id.ingredients_card);
@@ -45,6 +54,9 @@ public class RecipeDetailsFragment extends Fragment implements RecipeStepsAdapte
         RecipeStepsAdapter recipeStepsAdapter = new RecipeStepsAdapter(this);
         recipeStepsAdapter.setStepsData(stepList);
         mRecyclerView.setAdapter(recipeStepsAdapter);
+        if (layoutManagerSavedState != null) {
+            restoreLayoutManagerPosition();
+        }
         mRecyclerView.setHasFixedSize(true);
         ingredientsCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,4 +101,17 @@ public class RecipeDetailsFragment extends Fragment implements RecipeStepsAdapte
     public void setIngredientsList(ArrayList<Ingredient> ingredientsList) {
         this.ingredientsList = ingredientsList;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        bundle.putParcelable(SAVED_POSITION, mRecyclerView.getLayoutManager().onSaveInstanceState());
+    }
+
+    private void restoreLayoutManagerPosition() {
+        if (layoutManagerSavedState != null) {
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(layoutManagerSavedState);
+        }
+    }
+
 }
